@@ -1,0 +1,17 @@
+*.pyc
+__pycache__/
+db.sqlite3
+*.log
+.env
+.venv/
+.poetry/
+.mypy_cache/
+.pytest_cache/
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+.idea/
+.vscode/
+.DS_Store
+*.swp
