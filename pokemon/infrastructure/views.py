@@ -7,7 +7,8 @@ from pokemon.infrastructure.serializers import PokemonSerializer
 class PokemonView(APIView):
     def get(self, request, name_id):
         try:
-            pokemon = PokemonService.get_pokemon_abilities(name_id)
+            service = PokemonService()
+            pokemon = service.get_pokemon_abilities(name_id)
             serializer = PokemonSerializer(pokemon)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except ValueError:

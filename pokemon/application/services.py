@@ -8,7 +8,7 @@ load_dotenv()
 POKEAPI_URL = os.getenv('POKEAPI_URL')
 
 class PokemonService:
-    def get_pokemon_abilities(name_id: str) -> Pokemon:
+    def get_pokemon_abilities(self, name_id: str) -> Pokemon:
         response = requests.get(f"{POKEAPI_URL}{name_id}")
         if response.status_code != 200:
             raise ValueError("Pokemon not found")

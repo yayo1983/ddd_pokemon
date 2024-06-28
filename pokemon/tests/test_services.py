@@ -1,7 +1,6 @@
 import pytest
-import requests
 from unittest.mock import patch
-from pokemon.services import PokemonService
+from pokemon.application.services import PokemonService
 
 @pytest.fixture
 def mock_response():
@@ -12,7 +11,7 @@ def mock_response():
         ]
     }
 
-@patch('pokemon.services.requests.get')
+@patch('pokemon.application.services.requests.get')
 def test_get_pokemon_abilities(mock_get, mock_response):
     mock_get.return_value.status_code = 200
     mock_get.return_value.json.return_value = mock_response
@@ -23,7 +22,7 @@ def test_get_pokemon_abilities(mock_get, mock_response):
     assert pokemon.name_id == 'bulbasaur'
     assert pokemon.abilities == ['overgrow', 'chlorophyll']
 
-@patch('pokemon.services.requests.get')
+@patch('pokemon.application.services.requests.get')
 def test_get_pokemon_abilities_not_found(mock_get):
     mock_get.return_value.status_code = 404
 
