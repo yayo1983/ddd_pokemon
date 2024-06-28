@@ -1,9 +1,15 @@
+import os
 import requests
 from pokemon.domain.models import Pokemon
+from dotenv import load_dotenv
+
+load_dotenv()
+
+POKEAPI_URL = os.getenv('POKEAPI_URL')
 
 class PokemonService:
     def get_pokemon_abilities(name_id: str) -> Pokemon:
-        response = requests.get(f"https://pokeapi.co/api/v2/ability/{name_id}")
+        response = requests.get(f"{POKEAPI_URL}{name_id}")
         if response.status_code != 200:
             raise ValueError("Pokemon not found")
         data = response.json()
