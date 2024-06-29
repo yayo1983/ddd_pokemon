@@ -74,9 +74,14 @@ All the test
 ```sh
 poetry run pytest
 ```
-or One specific test
+or One specific test file 
 ```sh
 poetry run python manage.py test pokemon.tests.test_service_integration
+```
+
+or a specific function in one file test
+```sh
+poetry run python3 -m unittest pokemon.tests.test_services.TestPokemonService.test_get_pokemon_abilities_success
 ```
 ## Run project
 ```sh

@@ -7,25 +7,18 @@ class TestPokemonService(unittest.TestCase):
     
     @patch('pokemon.domain.services.requests.get')
     def test_get_pokemon_abilities_success(self, mock_get):
-        """
-        Test case for successful retrieval of Pokemon abilities.
-
-        Configures a mock response from requests.get to simulate a successful API response.
-        Calls PokemonService.get_pokemon_abilities with 'bulbasaur'.
-        Asserts that the returned Pokemon object has the correct name_id and abilities.
-        """
-        # Configure mock response
+        # Configure the mock response
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {
-            'abilities': [{'ability': {'name': 'ability1'}}, {'ability': {'name': 'ability2'}}]
+            'results': [{'name': 'ability1'}, {'name': 'ability2'}]
         }
         mock_get.return_value = mock_response
-        
+
         # Execute the method under test
         service = PokemonService()
         pokemon = service.get_pokemon_abilities('bulbasaur')
-        
+
         # Verify the result
         self.assertEqual(pokemon.name_id, 'bulbasaur')
         self.assertEqual(pokemon.abilities, ['ability1', 'ability2'])
