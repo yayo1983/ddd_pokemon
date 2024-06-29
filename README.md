@@ -4,6 +4,15 @@ This project is a Django REST API that acts as a proxy to fetch Pokémon abiliti
 
 ## Features
 - Fetch Pokemón abilities from an external API.
+To know more about Pokemon services you can read here:
+```sh
+https://pokeapi.co/docs/v2#abilities
+```
+and 
+```sh
+https://bulbapedia.bulbagarden.net/wiki/Hoenn_Route_121
+```
+
 
 ## Project Structure
 ```sh
@@ -26,19 +35,21 @@ pokemon-proxy/
 │   ├── __init__.py
 │   ├── application/
 │   │   ├── __init__.py
-│   │   └── services.py
-│   ├── domain/
-│   │   ├── __init__.py
-│   │   └── models.py
-│   ├── infrastructure/
-│   │   ├── __init__.py
 │   │   │── views.py
 │   │   └── serializers.py
+│   │   └── abstract_factory.py
+│   ├── domain/
+│   │   ├── __init__.py
+│   │   └── services.py
+│   ├── infrastructure/
+│   │   ├── __init__.py
+│   │   └── models.py
 │   ├── migrations/
 │   │   ├── __init__.py
 └── tests/
     ├── __init__.py
     └── test_service.py
+    └── test_service_integration.py
 ```
 
 ## Installation
@@ -51,10 +62,15 @@ poetry install
 ```
 
 ## Run test
+
+All the test 
 ```sh
 poetry run pytest
 ```
-
+or One specific test
+```sh
+poetry run python manage.py test pokemon.tests.test_service_integration
+```
 ## Run project
 ```sh
 poetry run python manage.py runserver
