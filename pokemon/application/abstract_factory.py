@@ -18,4 +18,4 @@ class PokemonFactory(ServiceFactory):
         return PokemonService()
 
     def create_serializer(self, pokemon: Pokemon) -> PokemonSerializer:
-        return PokemonSerializer()
+        return PokemonSerializer(pokemon)
