@@ -1,8 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from pokemon.application.services import PokemonService
-from pokemon.infrastructure.serializers import PokemonSerializer
+from pokemon.domain.services import PokemonService
+from pokemon.application.serializers import PokemonSerializer
 
 class PokemonView(APIView):
     def get(self, request, name_id):

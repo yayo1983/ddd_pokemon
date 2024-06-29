@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch
-from pokemon.application.services import PokemonService
+from pokemon.domain.services import PokemonService
 
 @pytest.fixture
 def mock_response():

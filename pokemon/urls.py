@@ -1,5 +1,5 @@
 from django.urls import path
-from pokemon.infrastructure.views import PokemonView
+from pokemon.application.views import PokemonView
 
 
 urlpatterns = [
