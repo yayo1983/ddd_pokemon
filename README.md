@@ -68,6 +68,11 @@ pokemon-proxy/
 poetry install
 ```
 
+3. Correr Redis en docker
+```sh
+docker run -d --name redis-server -p 6379:6379 redis
+```
+
 ## Run test
 
 All the test 

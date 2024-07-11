@@ -42,10 +42,24 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'django_ratelimit',
     "rest_framework",
     "pokemon",
     'drf_yasg',
 ]
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://redis:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
+RATELIMIT_CACHE = 'default'
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
