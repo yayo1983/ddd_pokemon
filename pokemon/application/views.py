@@ -20,7 +20,8 @@ class PokemonView(APIView):
         operation_description="Get Pokemon abilities by name or ID",
         responses={
             200: "Successful response - Returns Pokemon abilities",
-            404: "Pokemon not found - Returns an error message"
+            404: "Pokemon not found - Returns an error message",
+            403: "Exceeded the number of use of endpoint - Returns an error message"
         },
         manual_parameters=[
             openapi.Parameter(
@@ -30,7 +31,7 @@ class PokemonView(APIView):
             )
         ]
     )
-    @method_decorator(ratelimit(key='ip', rate='1/m', method='GET'))
+    @method_decorator(ratelimit(key='ip', rate='5/m', method='GET'))
     def get(self, request, name_id):
         '''
             rate: Definided the throttling rate in '5/m' (5 requests per minute).
