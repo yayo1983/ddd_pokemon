@@ -68,9 +68,37 @@ pokemon-proxy/
 poetry install
 ```
 
-3. Correr Redis en docker
+3. Run Redis using container of Docker
 ```sh
 docker run -d --name redis-server -p 6379:6379 redis
+```
+
+## Test Redis
+
+1. Instarr redis cli
+
+```sh
+sudo apt install redis-tools
+```
+
+2. Connect to Redis
+```sh
+redis-cli -h localhost -p 6379
+```
+
+2. Connect to Redis
+```sh
+redis-cli -h localhost -p 6379
+```
+
+3. Set values in Redis
+```sh
+set mi_clave valor1
+```
+
+4. See values
+```sh
+get mi_clave
 ```
 
 ## Run test
@@ -88,7 +116,19 @@ or a specific function in one file test
 ```sh
 poetry run python3 -m unittest pokemon.tests.test_services.TestPokemonService.test_get_pokemon_abilities_success
 ```
-## Run project
+
+## Run project using Docker
+
+```sh
+docker-compose up --build
+```
+## Run project without Docker
+
+1. Run Redis
+```sh
+docker run -d --name redis-server -p 6379:6379 redis
+```
+2. 
 ```sh
 poetry run python manage.py runserver
 ```
