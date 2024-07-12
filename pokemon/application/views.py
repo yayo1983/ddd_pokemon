@@ -6,6 +6,7 @@ from pokemon.application.abstract_factory import PokemonFactory, ServiceFactory
 from django_ratelimit.decorators import ratelimit
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+from django.utils.decorators import method_decorator
 
 def ratelimit_error(request, exception=None):
     return JsonResponse({"error": "rate limit exceeded"}, status=429)
@@ -29,7 +30,7 @@ class PokemonView(APIView):
             )
         ]
     )
-    @ratelimit(key='ip', rate='5/m', method='GET', block=True)
+    @method_decorator(ratelimit(key='ip', rate='1/m', method='GET'))
     def get(self, request, name_id):
         '''
             rate: Definided the throttling rate in '5/m' (5 requests per minute).

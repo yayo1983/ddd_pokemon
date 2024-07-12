@@ -60,6 +60,8 @@ CACHES = {
 }
 
 RATELIMIT_CACHE = 'default'
+RATELIMIT_USE_CACHE = 'default'
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
