@@ -3,27 +3,28 @@ from unittest.mock import patch, Mock
 from pokemon.domain.services import PokemonService
 import requests
 
+
 class TestPokemonService(unittest.TestCase):
-    
-    @patch('pokemon.domain.services.requests.get')
+
+    @patch("pokemon.domain.services.requests.get")
     def test_get_pokemon_abilities_success(self, mock_get):
         # Configure the mock response
         mock_response = Mock()
         mock_response.status_code = 200
         mock_response.json.return_value = {
-            'results': [{'name': 'ability1'}, {'name': 'ability2'}]
+            "results": [{"name": "ability1"}, {"name": "ability2"}]
         }
         mock_get.return_value = mock_response
 
         # Execute the method under test
         service = PokemonService()
-        pokemon = service.get_pokemon_abilities('bulbasaur')
+        pokemon = service.get_pokemon_abilities("bulbasaur")
 
         # Verify the result
-        self.assertEqual(pokemon.name_id, 'bulbasaur')
-        self.assertEqual(pokemon.abilities, ['ability1', 'ability2'])
-    
-    @patch('pokemon.domain.services.requests.get')
+        self.assertEqual(pokemon.name_id, "bulbasaur")
+        self.assertEqual(pokemon.abilities, ["ability1", "ability2"])
+
+    @patch("pokemon.domain.services.requests.get")
     def test_get_pokemon_abilities_http_error(self, mock_get):
         """
         Test case for handling HTTP errors in get_pokemon_abilities.
@@ -33,15 +34,15 @@ class TestPokemonService(unittest.TestCase):
         Asserts that a ValueError with the expected message is raised.
         """
         # Configure mock to simulate an HTTP error
-        mock_get.side_effect = requests.exceptions.HTTPError('HTTP Error occurred')
-        
+        mock_get.side_effect = requests.exceptions.HTTPError("HTTP Error occurred")
+
         # Execute the method under test and verify the exception
         service = PokemonService()
         with self.assertRaises(ValueError) as cm:
-            service.get_pokemon_abilities('bulbasaur')
-        self.assertIn('HTTP error occurred', str(cm.exception))
-    
-    @patch('pokemon.domain.services.requests.get')
+            service.get_pokemon_abilities("bulbasaur")
+        self.assertIn("HTTP error occurred", str(cm.exception))
+
+    @patch("pokemon.domain.services.requests.get")
     def test_get_pokemon_abilities_request_error(self, mock_get):
         """
         Test case for handling request errors in get_pokemon_abilities.
@@ -51,15 +52,17 @@ class TestPokemonService(unittest.TestCase):
         Asserts that a ValueError with the expected message is raised.
         """
         # Configure mock to simulate a request error
-        mock_get.side_effect = requests.exceptions.RequestException('Request Error occurred')
-        
+        mock_get.side_effect = requests.exceptions.RequestException(
+            "Request Error occurred"
+        )
+
         # Execute the method under test and verify the exception
         service = PokemonService()
         with self.assertRaises(ValueError) as cm:
-            service.get_pokemon_abilities('bulbasaur')
-        self.assertIn('Request error occurred', str(cm.exception))
-    
-    @patch('pokemon.domain.services.requests.get')
+            service.get_pokemon_abilities("bulbasaur")
+        self.assertIn("Request error occurred", str(cm.exception))
+
+    @patch("pokemon.domain.services.requests.get")
     def test_get_pokemon_abilities_unexpected_response_format(self, mock_get):
         """
         Test case for handling unexpected response formats in get_pokemon_abilities.
@@ -73,12 +76,13 @@ class TestPokemonService(unittest.TestCase):
         mock_response.status_code = 200
         mock_response.json.return_value = {}  # Unexpected response format
         mock_get.return_value = mock_response
-        
+
         # Execute the method under test and verify the exception
         service = PokemonService()
         with self.assertRaises(ValueError) as cm:
-            service.get_pokemon_abilities('bulbasaur')
-        self.assertIn('Unexpected response format', str(cm.exception))
+            service.get_pokemon_abilities("bulbasaur")
+        self.assertIn("Unexpected response format", str(cm.exception))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()
