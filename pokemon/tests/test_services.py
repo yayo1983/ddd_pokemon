@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch, Mock
-from pokemon.domain.services import PokemonService
+from pokemon.domain.pokemon_service import PokemonService
 import requests
 
 
