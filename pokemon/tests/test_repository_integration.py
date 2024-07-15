@@ -1,7 +1,7 @@
 import os
 import unittest
 import requests
-from pokemon.domain.pokemon_service import PokemonService
+from pokemon.infrastructure.pokemon_repository import PokemonRepository
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -9,14 +9,14 @@ load_dotenv()
 POKEAPI_URL = os.getenv("POKEAPI_URL")
 
 
-class TestPokemonServiceIntegration(unittest.TestCase):
+class TestPokemonRepositoryIntegration(unittest.TestCase):
 
     def test_get_pokemon_abilities_integration(self):
         # Configure the name or ID of the Pokémon for the test
         pokemon_name_id = "#0001"
 
         # Initialize PokemonService
-        service = PokemonService()
+        repository = PokemonRepository()
 
         try:
             # Make a real request to the external API
@@ -25,7 +25,7 @@ class TestPokemonServiceIntegration(unittest.TestCase):
             data = response.json()
 
             # Call the method under test
-            pokemon = service.get_pokemon_abilities(pokemon_name_id)
+            pokemon = repository.get_pokemon_abilities(pokemon_name_id)
 
             # Verify that the abilities obtained match those from the API response
             abilities_from_service = pokemon.abilities

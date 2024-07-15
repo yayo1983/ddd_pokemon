@@ -1,12 +1,12 @@
 import unittest
 from unittest.mock import patch, Mock
-from pokemon.domain.pokemon_service import PokemonService
+from pokemon.infrastructure.pokemon_repository import PokemonRepository
 import requests
 
 
-class TestPokemonService(unittest.TestCase):
+class TestPokemonRepository(unittest.TestCase):
 
-    @patch("pokemon.domain.services.requests.get")
+    @patch("pokemon.infrastructure.pokemon_repository.requests.get")
     def test_get_pokemon_abilities_success(self, mock_get):
         # Configure the mock response
         mock_response = Mock()
@@ -17,14 +17,14 @@ class TestPokemonService(unittest.TestCase):
         mock_get.return_value = mock_response
 
         # Execute the method under test
-        service = PokemonService()
-        pokemon = service.get_pokemon_abilities("bulbasaur")
+        repository = PokemonRepository()
+        pokemon = repository.get_pokemon_abilities("bulbasaur")
 
         # Verify the result
         self.assertEqual(pokemon.name_id, "bulbasaur")
         self.assertEqual(pokemon.abilities, ["ability1", "ability2"])
 
-    @patch("pokemon.domain.services.requests.get")
+    @patch("pokemon.infrastructure.pokemon_repository.requests.get")
     def test_get_pokemon_abilities_http_error(self, mock_get):
         """
         Test case for handling HTTP errors in get_pokemon_abilities.
@@ -37,12 +37,12 @@ class TestPokemonService(unittest.TestCase):
         mock_get.side_effect = requests.exceptions.HTTPError("HTTP Error occurred")
 
         # Execute the method under test and verify the exception
-        service = PokemonService()
+        repository = PokemonRepository()
         with self.assertRaises(ValueError) as cm:
-            service.get_pokemon_abilities("bulbasaur")
+            repository.get_pokemon_abilities("bulbasaur")
         self.assertIn("HTTP error occurred", str(cm.exception))
 
-    @patch("pokemon.domain.services.requests.get")
+    @patch("pokemon.infrastructure.pokemon_repository.requests.get")
     def test_get_pokemon_abilities_request_error(self, mock_get):
         """
         Test case for handling request errors in get_pokemon_abilities.
@@ -57,12 +57,12 @@ class TestPokemonService(unittest.TestCase):
         )
 
         # Execute the method under test and verify the exception
-        service = PokemonService()
+        repository = PokemonRepository()
         with self.assertRaises(ValueError) as cm:
-            service.get_pokemon_abilities("bulbasaur")
+            repository.get_pokemon_abilities("bulbasaur")
         self.assertIn("Request error occurred", str(cm.exception))
 
-    @patch("pokemon.domain.services.requests.get")
+    @patch("pokemon.infrastructure.pokemon_repository.requests.get")
     def test_get_pokemon_abilities_unexpected_response_format(self, mock_get):
         """
         Test case for handling unexpected response formats in get_pokemon_abilities.
@@ -78,9 +78,9 @@ class TestPokemonService(unittest.TestCase):
         mock_get.return_value = mock_response
 
         # Execute the method under test and verify the exception
-        service = PokemonService()
+        repository = PokemonRepository()
         with self.assertRaises(ValueError) as cm:
-            service.get_pokemon_abilities("bulbasaur")
+            repository.get_pokemon_abilities("bulbasaur")
         self.assertIn("Unexpected response format", str(cm.exception))
 
 
