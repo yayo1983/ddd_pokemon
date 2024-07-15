@@ -1,7 +1,7 @@
 import os
 import unittest
 import requests
-from pokemon.domain.services import PokemonService
+from pokemon.domain.pokemon_service import PokemonService
 from dotenv import load_dotenv
 
 load_dotenv()
