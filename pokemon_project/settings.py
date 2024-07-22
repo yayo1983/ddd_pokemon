@@ -18,7 +18,8 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv()
-POKEAPI_URL = os.getenv('POKEAPI_URL')
+REDIS_HOST = os.getenv('REDIS_HOST', 'empty_redis_host')
+REDIS_PORT = os.getenv('REDIS_PORT', 'empty_redis_port')
 
 
 # Quick-start development settings - unsuitable for production
@@ -52,7 +53,7 @@ INSTALLED_APPS = [
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://redis:6379/1',
+        'LOCATION': str(REDIS_HOST)+':'+str(REDIS_PORT)+'/1',
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }

@@ -17,20 +17,26 @@ class PokemonView(APIView):
         self.factory = factory or PokemonFactory()
   
     @swagger_auto_schema(
-        operation_description="Get Pokemon abilities by name or ID",
-        responses={
-            200: "Successful response - Returns Pokemon abilities",
-            404: "Pokemon not found - Returns an error message",
-            403: "Exceeded the number of use of endpoint - Returns an error message"
-        },
-        manual_parameters=[
-            openapi.Parameter(
-                'name_id', openapi.IN_PATH, 
-                description="Name or ID of the Pokemon", 
-                type=openapi.TYPE_STRING
-            )
-        ]
-    )
+    operation_description="Get Pokemon abilities by name or ID",
+    responses={
+        200: openapi.Response(
+            description="Successful response - Returns Pokemon abilities"
+        ),
+        404: openapi.Response(
+            description="Pokemon not found - Returns an error message"
+        ),
+        403: openapi.Response(
+            description="Exceeded the number of use of endpoint - Returns an error message"
+        ),
+    },
+    manual_parameters=[
+        openapi.Parameter(
+            'name_id', openapi.IN_PATH, 
+            description="Name or ID of the Pokemon", 
+            type=openapi.TYPE_STRING
+        )
+    ]
+)
     @method_decorator(ratelimit(key='ip', rate='5/m', method='GET'))
     def get(self, request, name_id):
         '''
