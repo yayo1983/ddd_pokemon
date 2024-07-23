@@ -1,1 +1,4 @@
 POKEAPI_URL=https://pokeapi.co/api/v2/ability/
+REDIS_HOST=redis://redis
+REDIS_PORT=6379
+ENVIRONMENT=development
